@@ -1,35 +1,411 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Dylan Mills — LANL-sponsored radiographic panel positioner: electrical architecture, embedded controls, CAD, and prototype validation."><meta name="theme-color" content="#ffffff"><title>Radiographic Panel Positioner · Dylan Mills</title><style>
 :root{--ink:#1d1d1f;--muted:#6e6e73;--blue:#0071e3;--grey:#f5f5f7}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;color:var(--ink);background:#fff;font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}a{color:#0066cc;text-decoration:none}a:hover{text-decoration:underline}a:focus-visible,summary:focus-visible{outline:3px solid #0071e3;outline-offset:5px}header{position:sticky;top:0;z-index:10;background:#ffffffdf;backdrop-filter:blur(20px);border-bottom:1px solid #eee}nav{max-width:1200px;padding:17px 32px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px}nav>a{font-size:19px;font-weight:650;color:var(--ink);letter-spacing:-.7px}nav div{display:flex;gap:26px;font-size:12px}main{max-width:1240px;padding:0 42px;margin:auto}.hero{text-align:center;padding:75px 0 0}.eyebrow{font-size:13px;color:var(--muted);font-weight:550}.hero h1{font-size:clamp(48px,6.2vw,82px);letter-spacing:-4px;line-height:1.04;font-weight:650;max-width:1000px;margin:22px auto}.hero h1 span{color:#86868b}.lead{font-size:22px;color:var(--muted);max-width:720px;margin:26px auto;line-height:1.45;letter-spacing:-.4px}.hero>img{display:block;width:100%;max-height:610px;object-fit:contain;margin:40px auto 12px}.caption{font-size:12px;color:var(--muted);text-align:center;margin:12px 0 0;line-height:1.5}.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin:55px 0 0;padding:35px 0;border-block:1px solid #e5e5e7;text-align:center}.facts strong{font-size:28px;line-height:1.1;font-weight:600;display:block;letter-spacing:-1px}.facts span{font-size:12px;color:var(--muted);display:block;margin-top:9px}.section{padding-top:100px}h2{font-size:48px;line-height:1.1;letter-spacing:-2.2px;margin:14px 0 25px;font-weight:650}h3{font-size:25px;line-height:1.2;letter-spacing:-.8px;margin:0 0 17px}p{margin:0 0 20px}.muted{color:var(--muted)}.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.split>div>p{color:var(--muted)}.role{background:var(--grey);padding:36px;border-radius:24px}.role h3{font-size:21px}.role ul{padding-left:19px;margin:0;color:var(--muted);font-size:15px}.role li{margin:10px 0}.role small{display:block;color:var(--muted);line-height:1.5;margin-top:20px;font-size:12px}figure{margin:0}figure img{display:block;width:100%;height:auto;border-radius:18px}figcaption{font-size:12px;line-height:1.5;color:var(--muted);margin:14px 0 0}figcaption a{display:inline-block;margin-top:7px}.image-panel{background:var(--grey);padding:28px;border-radius:25px}.image-panel img{mix-blend-mode:multiply}.wide{margin-top:35px}.wide img{width:100%;height:auto;border:1px solid #e7e7ea;border-radius:15px}.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:35px}.mini-grid figure{background:var(--grey);padding:24px;border-radius:22px}.mini-grid img{height:230px;object-fit:contain;mix-blend-mode:multiply}.mini-grid h3{font-size:19px;margin:22px 0 0}.section-intro{max-width:700px;color:var(--muted);font-size:20px;line-height:1.5}.architecture{background:#101113;color:#fff;padding:45px;border-radius:26px;margin-top:35px}.architecture h3{color:#fff;font-size:25px}.architecture p{color:#a1a1a6;font-size:15px}.system-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:35px}.system-grid strong{color:#f5f5f7;font-size:18px}.system-grid span{display:block;color:#8dbcf5;font-size:12px;margin:8px 0}.code-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}.code-card{min-width:0;border:1px solid #e5e5e7;border-radius:24px;overflow:hidden}.code-head{padding:30px 30px 0}.code-head p{font-size:15px;color:var(--muted)}.code-head h3{font-size:22px}.code-card pre{background:#101113;color:#d8e5f5;margin:24px 0 0;padding:26px;overflow-x:auto;font:12px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:4}.code-card>a{display:block;margin:20px 30px;font-size:14px}.code-note{font-size:13px;color:var(--muted);margin-top:20px}.test-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:35px;align-items:center}.test-grid img{width:100%;height:auto}.test-grid p{color:var(--muted);font-size:16px}.outcomes{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:30px}.outcomes>div{border-radius:24px;background:var(--grey);padding:32px}.outcomes h3{font-size:23px}.outcomes p{font-size:15px;color:var(--muted);margin:0}.docs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}.doc{display:block;border:1px solid #e5e5e7;border-radius:22px;padding:28px;color:var(--ink)}.doc strong{display:block;font-size:19px;letter-spacing:-.5px}.doc span{display:block;font-size:13px;color:var(--muted);margin:10px 0}.doc em{font-style:normal;font-size:14px;color:#0066cc}.poster{margin-top:30px}details{border-top:1px solid #e5e5e7;margin-top:30px;padding-top:22px}summary{cursor:pointer;color:#0066cc;font-size:15px}details ul{font-size:14px;color:var(--muted);padding-left:20px}.closing{text-align:center;border-radius:28px;background:var(--grey);padding:60px 25px;margin-top:100px}.closing h2{font-size:42px}.pill{display:inline-block;background:var(--blue);color:white;border-radius:50px;padding:12px 24px;font-size:15px}.closing p{color:var(--muted)}footer{padding:35px 0;display:flex;justify-content:space-between;font-size:11px;color:var(--muted);gap:20px}@media(max-width:800px){main{padding:0 22px}nav{padding:17px 22px}nav div{gap:18px}.hero{padding-top:50px}.hero h1{letter-spacing:-2.6px}.lead{font-size:19px}.hero>img{max-height:450px}.facts{grid-template-columns:1fr 1fr;gap:30px}.facts strong{font-size:25px}.section{padding-top:70px}h2{font-size:36px;letter-spacing:-1.5px}.split,.test-grid,.code-grid{grid-template-columns:1fr;gap:30px}.mini-grid{grid-template-columns:1fr}.mini-grid img{height:300px}.architecture{padding:28px}.system-grid{grid-template-columns:1fr;gap:15px}.outcomes,.docs{grid-template-columns:1fr}.role{padding:28px}.closing{margin-top:65px;padding:40px 22px}.closing h2{font-size:33px}footer{flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.code-viewer{margin-top:34px;border:1px solid #2b2e34;border-radius:26px;overflow:hidden;min-width:0;background:#101113;color:#d8e5f5}.code-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;padding:24px 30px;border-bottom:1px solid #303238}.code-file strong{display:block;font:14px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#f5f5f7}.code-file span{display:block;font-size:12px;color:#9da8b8;margin-top:4px}.code-toolbar>a{font-size:13px;color:#83baff}.code-jumps{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 30px;background:#181a1e;border-bottom:1px solid #303238}.code-jumps>span{font-size:12px;color:#9da8b8;margin-right:8px}.code-jumps button{border:1px solid transparent;border-radius:18px;background:transparent;color:#c3ccd9;font:12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:7px 13px;cursor:pointer}.code-jumps button:hover{background:#2a2e36}.code-jumps button[aria-pressed="true"]{background:#29415f;color:#e4efff}.code-jumps button:focus-visible,.code-viewer pre:focus-visible{outline:3px solid #83baff;outline-offset:-3px}.code-viewer pre{position:relative;max-height:680px;min-width:0;max-width:100%;overflow:auto;margin:0;padding:26px 30px;font:13px/1.85 ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2;scrollbar-color:#536071 #181a1e;scrollbar-width:thin}.syntax-comment{color:#94a3a8}.syntax-string{color:#add7b2}.syntax-keyword,.syntax-directive{color:#c4b5f2}.syntax-number{color:#e8bd8b}.syntax-function{color:#83c6e4}@media(max-width:800px){.code-toolbar{padding:22px}.code-jumps{padding:14px 18px}.code-viewer pre{padding:22px;font-size:12px;max-height:620px;white-space:pre-wrap;overflow-wrap:anywhere}.code-jumps>span{display:none}.code-file strong{font-size:13px}}
+@media(max-width:500px){nav .optional{display:none}}
 </style></head><body>
-<header><nav aria-label="Project navigation"><a href="index.html">Dylan Mills</a><div><a href="#electrical">Electrical</a><a href="#validation">Results</a><a href="index.html#contact">Contact ↗</a></div></nav></header><main>
-<section class="hero"><div class="eyebrow">CU Boulder × Los Alamos National Laboratory · Sponsored Capstone · 2024–2025</div><h1>Precise motion.<br><span>Purposeful engineering.</span></h1><p class="lead">An automated radiographic panel positioner. Built to move an X-ray panel remotely, with mechanical design, distributed controls, and electrical integration working as one.</p><a href="#overview">Explore the engineering ↓</a><img src="assets/lanl/positioner.webp" width="1020" height="985" alt="Team CAD rendering of the articulated radiographic panel positioner"><p class="caption">Team CAD rendering from the final project report.</p></section>
-<div class="facts"><div><strong>68 × 56 in</strong><span>Specified imaging workspace</span></div><div><strong>0.081 in</strong><span>Reported repeatability across sequence trials</span></div><div><strong>9 engineers</strong><span>Multidisciplinary capstone team</span></div><div><strong>Distinction in Design</strong><span>CU Boulder Mechanical Engineering</span></div></div>
-<section class="section split" id="overview"><div><div class="eyebrow">The challenge</div><h2>Move the panel.<br>Keep the operator back.</h2><p>Radiographic imaging helps bomb technicians inspect suspicious objects. Repositioning a panel manually brings the operator back toward the object. Our team developed a remotely controlled positioning system to automate that movement.</p><p>Two articulated arms cover the imaging area, while the base, panel mount, electrical system, and operator interface support deployment and scan sequences.</p></div><aside class="role"><h3>My focus: electrical & controls integration.</h3><ul><li>Embedded system architecture and microcontroller integration.</li><li>KiCad schematics, component connections, and multi-voltage wiring.</li><li>Motor drivers, sensor feedback, and communication interfaces.</li><li>Component placement, enclosure integration, and iterative testing.</li></ul><small>Team context: mechanical assemblies, CAD drawings, software, and test results shown here document the shared project. Code examples illustrate the team’s integrated control system.</small></aside></section>
-<section class="section" id="electrical"><div class="eyebrow">Electrical architecture</div><h2>Different voltages.<br>One integrated system.</h2><p class="section-intro">The design connects an AC servo drive, a joint motor driver, microcontrollers, brakes, and sensors. Power conversion and wiring had to support their different requirements while keeping signal connections organized.</p><div class="split wide"><figure class="image-panel"><img src="assets/lanl/electrical-enclosures.webp" loading="lazy" alt="CAD rendering of electrical enclosures mounted in the positioner base"><figcaption>Electrical enclosures integrated into the base. Team CAD rendering, final report Figure 8.</figcaption></figure><div><h3>Designed around the interfaces.</h3><p class="muted">The Raspberry Pi coordinates the system. CANopen links it to the base motor drive; USB serial connects the Arduino controllers; Ethernet connects the operator interface.</p><p class="muted">The report documents an important integration lesson: routing panel limit-switch signals down to the base introduced interference. Processing those signals at the panel with an Arduino Nano provided a different communication path.</p><p class="muted">Separate power and signal cabling, common terminal blocks, and accessible connections supported assembly and troubleshooting.</p></div></div>
-<figure class="wide"><a href="assets/lanl/electrical-schematic.webp" target="_blank" rel="noopener"><img src="assets/lanl/electrical-schematic.webp" width="1514" height="1054" loading="lazy" alt="Scheme 12 electrical schematic showing power conversion, controllers, motor drives, relays, and limit switches"></a><figcaption><strong>Scheme 12.</strong> Electrical schematic reproduced from the final report, Figure 23. Click to inspect the image, or <a href="assets/lanl/Scheme12.kicad_sch" download>download the original KiCad schematic ↓</a>.</figcaption></figure>
+<header><nav aria-label="Project navigation"><a href="index.html">Dylan Mills</a><div><a href="#electrical">Electrical</a><a href="#code">Code</a><a class="optional" href="#validation">Results</a><a href="index.html#contact">Contact ↗</a></div></nav></header><main>
+<section class="hero"><div class="eyebrow">CU Boulder × Los Alamos National Laboratory · Sponsored Capstone · 2024–2025</div><h1>Precise motion.<br><span>Purposeful engineering.</span></h1><p class="lead">An automated radiographic panel positioner. Built to move an X-ray panel remotely, with mechanical design, distributed controls, and electrical integration working as one.</p><a href="#overview">Explore the engineering ↓</a><img src="assets/lanl/positioner.webp" width="1020" height="985" alt="CAD rendering of the articulated radiographic panel positioner"><p class="caption">Articulated radiographic panel positioner.</p></section>
+<div class="facts"><div><strong>68 × 56 in</strong><span>Specified imaging workspace</span></div><div><strong>0.081 in</strong><span>Repeatability across sequence trials</span></div><div><strong>9 engineers</strong><span>Multidisciplinary capstone team</span></div><div><strong>Distinction in Design</strong><span>CU Boulder Mechanical Engineering</span></div></div>
+<section class="section split" id="overview"><div><div class="eyebrow">The challenge</div><h2>Move the panel.<br>Keep the operator back.</h2><p>Radiographic imaging helps bomb technicians inspect suspicious objects. Repositioning a panel manually brings the operator back toward the object. Our team developed a remotely controlled positioning system to automate that movement.</p><p>Two articulated arms cover the imaging area, while the base, panel mount, electrical system, and operator interface support deployment and scan sequences.</p></div><aside class="role"><h3>My focus: electrical & controls integration.</h3><ul><li>Embedded system architecture and microcontroller integration.</li><li>KiCad schematics, component connections, and multi-voltage wiring.</li><li>Motor drivers, sensor feedback, and communication interfaces.</li><li>Component placement, enclosure integration, and iterative testing.</li></ul></aside></section>
+<section class="section" id="electrical"><div class="eyebrow">Electrical architecture</div><h2>Different voltages.<br>One integrated system.</h2><p class="section-intro">The design connects an AC servo drive, a joint motor driver, microcontrollers, brakes, and sensors. Power conversion and wiring had to support their different requirements while keeping signal connections organized.</p><div class="split wide"><figure class="image-panel"><img src="assets/lanl/electrical-enclosures.webp" loading="lazy" alt="CAD rendering of electrical enclosures mounted in the positioner base" width="838" height="634"><figcaption>Electrical enclosures integrated into the base.</figcaption></figure><div><h3>Designed around the interfaces.</h3><p class="muted">The Raspberry Pi coordinates the system. CANopen links it to the base motor drive; USB serial connects the Arduino controllers; Ethernet connects the operator interface.</p><p class="muted">Separate power and signal cabling, common terminal blocks, and accessible connections supported assembly and troubleshooting.</p></div></div>
+<figure class="wide"><a href="assets/lanl/electrical-schematic.webp" target="_blank" rel="noopener"><img src="assets/lanl/electrical-schematic.webp" width="1514" height="1054" loading="lazy" alt="Scheme 12 electrical schematic showing power conversion, controllers, motor drives, relays, and limit switches"></a><figcaption><strong>Electrical schematic.</strong> Power conversion, controllers, motor drives, relays, and limit switches. <a href="assets/lanl/electrical-schematic.webp" target="_blank" rel="noopener">Open full-size diagram ↗</a></figcaption></figure>
 <div class="architecture"><h3>Control across three layers.</h3><div class="system-grid"><div><strong>Operator interface</strong><span>Ethernet → Raspberry Pi</span><p>Manual positioning, scan commands, system status, calibration, and abort controls.</p></div><div><strong>Motion coordination</strong><span>CANopen + USB serial</span><p>Base drive commands, joint movement, encoder positions, and controller communication.</p></div><div><strong>Physical feedback</strong><span>Encoders + limit switches + accelerometer</span><p>Position references, homing inputs, and prototype panel tilt measurement.</p></div></div></div></section>
-<section class="section" id="mechanical"><div class="eyebrow">Mechanical system · Team design</div><h2>Built around the motion.</h2><p class="section-intro">The shared mechanical design brings together a steel base, aluminum arms, geared joints, and a panel mount. These drawings show the physical system my electrical and controls work had to integrate with.</p><div class="mini-grid"><figure><img src="assets/lanl/base-assembly-render.webp" loading="lazy" alt="CAD rendering of the positioner base assembly"><h3>The base</h3><figcaption>Motor, gearbox, structural frame, and adjustable feet support the arm and house electrical hardware.</figcaption></figure><figure><img src="assets/lanl/joint-render.webp" loading="lazy" alt="CAD rendering of the motor and geared joint subassembly"><h3>The joint</h3><figcaption>Motor and gearing drive the second arm, with custom interfaces connecting the mechanical components.</figcaption></figure><figure><img src="assets/lanl/panel-mount.webp" loading="lazy" alt="CAD rendering of the radiographic panel mount"><h3>The panel mount</h3><figcaption>Supports the imaging panel and integrates the panel-side hardware.</figcaption></figure></div>
-<div class="mini-grid"><figure><a href="assets/lanl/arm-assembly.pdf" target="_blank" rel="noopener"><img src="assets/lanl/arm-assembly.webp" loading="lazy" alt="Arm and joint assembly engineering drawing"></a><h3>Arm assembly</h3><figcaption>Team assembly drawing.<br><a href="assets/lanl/arm-assembly.pdf" target="_blank" rel="noopener">Open full-resolution PDF ↗</a></figcaption></figure><figure><a href="assets/lanl/base-assembly.pdf" target="_blank" rel="noopener"><img src="assets/lanl/base-assembly.webp" loading="lazy" alt="Base assembly engineering drawing and bill of materials"></a><h3>Base assembly</h3><figcaption>Assembly layout and bill of materials.<br><a href="assets/lanl/base-assembly.pdf" target="_blank" rel="noopener">Open full-resolution PDF ↗</a></figcaption></figure><figure><a href="assets/lanl/panel-motor-mount.pdf" target="_blank" rel="noopener"><img src="assets/lanl/panel-motor-mount.webp" loading="lazy" alt="Dimensioned motor mount drawing with tolerances"></a><h3>Motor mount</h3><figcaption>Team manufacturing drawing with dimensions and tolerances.<br><a href="assets/lanl/panel-motor-mount.pdf" target="_blank" rel="noopener">Open full-resolution PDF ↗</a></figcaption></figure></div></section>
-<section class="section" id="code"><div class="eyebrow">Embedded controls & software</div><h2>From sensor values<br>to physical movement.</h2><p class="section-intro">Selected excerpts from the project repository show the connection between measurement, motion commands, and hardware. The examples below show two parts of that control chain.</p><div class="code-grid"><article class="code-card"><div class="code-head"><h3>Measuring panel tilt</h3><p>C++ / Arduino · ADXL345 accelerometer<br>Raw acceleration is scaled and converted into roll and pitch. This excerpt comes from the panel-leveling prototype.</p></div><pre><code>// Original project excerpt: estimate panel tilt from acceleration.
-adxl.readAccel(&amp;x, &amp;y, &amp;z);
-ax = x * 0.0039;
-ay = y * 0.0039;
-az = z * 0.0039;
+<section class="section" id="mechanical"><div class="eyebrow">Mechanical system</div><h2>Built around the motion.</h2><p class="section-intro">The mechanical design brings together a steel base, aluminum arms, geared joints, and a panel mount. These drawings show the physical system my electrical and controls work had to integrate with.</p><div class="mini-grid"><figure><img src="assets/lanl/base-assembly-render.webp" loading="lazy" alt="CAD rendering of the positioner base assembly" width="1500" height="983"><h3>The base</h3><figcaption>Motor, gearbox, structural frame, and adjustable feet support the arm and house electrical hardware.</figcaption></figure><figure><img src="assets/lanl/joint-render.webp" loading="lazy" alt="CAD rendering of the motor and geared joint subassembly" width="1226" height="981"><h3>The joint</h3><figcaption>Motor and gearing drive the second arm, with custom interfaces connecting the mechanical components.</figcaption></figure><figure><img src="assets/lanl/panel-mount.webp" loading="lazy" alt="CAD rendering of the radiographic panel mount" width="1336" height="1069"><h3>The panel mount</h3><figcaption>Supports the imaging panel and integrates the panel-side hardware.</figcaption></figure></div>
+<div class="mini-grid"><figure><a href="assets/lanl/arm-assembly.pdf" target="_blank" rel="noopener"><img src="assets/lanl/arm-assembly.webp" loading="lazy" alt="Arm and joint assembly engineering drawing" width="1268" height="980"></a><h3>Arm assembly</h3><figcaption>Arm and joint assembly drawing.<br><a href="assets/lanl/arm-assembly.pdf" target="_blank" rel="noopener">Open full-resolution PDF ↗</a></figcaption></figure><figure><a href="assets/lanl/base-assembly.pdf" target="_blank" rel="noopener"><img src="assets/lanl/base-assembly.webp" loading="lazy" alt="Base assembly engineering drawing and bill of materials" width="1268" height="980"></a><h3>Base assembly</h3><figcaption>Assembly layout and bill of materials.<br><a href="assets/lanl/base-assembly.pdf" target="_blank" rel="noopener">Open full-resolution PDF ↗</a></figcaption></figure><figure><a href="assets/lanl/panel-motor-mount.pdf" target="_blank" rel="noopener"><img src="assets/lanl/panel-motor-mount.webp" loading="lazy" alt="Dimensioned motor mount drawing with tolerances" width="1700" height="1100"></a><h3>Motor mount</h3><figcaption>Manufacturing drawing with dimensions and tolerances.<br><a href="assets/lanl/panel-motor-mount.pdf" target="_blank" rel="noopener">Open full-resolution PDF ↗</a></figcaption></figure></div></section>
+<section class="section" id="code"><div class="eyebrow">Embedded controls & software</div><h2>From sensor values<br>to physical movement.</h2><p class="section-intro">The Python controller coordinates CANopen drive commands, encoder feedback, limit inputs, and motion profiles.</p>
+<div class="code-viewer"><div class="code-toolbar"><div class="code-file"><strong>base-motor-control.py</strong><span>376 lines · Python / CANopen</span></div></div>
+<div class="code-jumps" aria-label="Jump within the positioner controller"><span>Jump to</span><button type="button" data-code-target="panel-start" aria-pressed="false">Start</button><button type="button" data-code-target="panel-limits" aria-pressed="false">Limit handling</button><button type="button" data-code-target="panel-drive" aria-pressed="false">Drive state</button><button type="button" data-code-target="panel-motion" aria-pressed="true">Motion control</button></div>
+<pre id="panel-code" tabindex="0" aria-label="Full Python CANopen positioner controller"><code><span id="panel-start" class="code-anchor"></span><span class="syntax-keyword">import</span> canopen
+<span class="syntax-keyword">import</span> time
+<span class="syntax-keyword">import</span> numpy <span class="syntax-keyword">as</span> np
+<span class="syntax-keyword">import</span> RPi.GPIO <span class="syntax-keyword">as</span> GPIO
+<span class="syntax-keyword">import</span> asyncio
 
-roll = atan2(ay, az) * 57.2958;
-pitch = atan2(-ax, sqrt(ay * ay + az * az)) * 57.2958;</code></pre><a href="assets/lanl/panel-leveling.ino" download>Download original prototype source ↓</a></article><article class="code-card"><div class="code-head"><h3>Commanding the base drive</h3><p>Python / CANopen · Team control module<br>The controller selects profile-position mode, converts the target angle into encoder counts, and sets the motion profile.</p></div><pre><code># Enable Profile Position Mode
-self.node.sdo[0x6060].raw = 0x01  # 0001h for Profile Position Mode
-time.sleep(0.25)
+<span class="syntax-keyword">class</span> <span class="syntax-function">BaseControl</span>():
+    <span class="syntax-keyword">def</span> <span class="syntax-function">__init__</span>(self, mainControl):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Initializes the BaseControl object with references to the main control.
+        Sets up CANopen communication, GPIO pins, and motor parameters.
+        &quot;&quot;&quot;</span>
+        self.connected = <span class="syntax-keyword">False</span>
+        self.moving = <span class="syntax-keyword">False</span>
+        self.enabled = <span class="syntax-keyword">False</span>
+        self.calibratingBaseRight = <span class="syntax-keyword">False</span>
+        self.calibratingBaseLeft = <span class="syntax-keyword">False</span>
+        self.calibratingJoint = <span class="syntax-keyword">False</span>
+        self.calibratingPanel = <span class="syntax-keyword">False</span>
+        self.mainControl = mainControl
 
-target_position = target_position_deg/360*10000*100
-if not relative:
-    target_position = target_position + self.stepsZero #Add the zero position to the target position
+        self.network = canopen.<span class="syntax-function">Network</span>()
+        self.node_id = <span class="syntax-number">1</span>
+        self.<span class="syntax-function">connect</span>()
+        self.node = self.network.<span class="syntax-function">add_node</span>(self.node_id, <span class="syntax-string">&quot;Motors/CAN_EDS_212E_SV200.eds&quot;</span>)
+        self.node.sdo.timeout = <span class="syntax-number">1.5</span>
 
-self.node.sdo[0x607A].raw = target_position
-self.node.sdo[0x6081].raw = velocity
-self.node.sdo[0x6083].raw = acceleration
-self.node.sdo[0x6084].raw = deceleration</code></pre><a href="assets/lanl/base-motor-control.py" download>Download original control module ↓</a></article></div><p class="code-note">Project source excerpts: panel tilt estimation and CANopen drive control. Active panel leveling remained a prototype feature; final field testing used gravity-based leveling.</p></section>
-<section class="section"><div class="eyebrow">Analysis & design decisions</div><h2>Choose the hardware.<br>Check the assumptions.</h2><div class="split"><div><p class="muted">Motor selection was supported by MATLAB calculations for centers of mass, inertia, and joint torque. Comparing loads across arm configurations helped the team evaluate motor and gearbox combinations.</p><p class="muted">The electrical archive also includes calculations for panel-leveling torque, backlash, and motor conversion. These analyses document the progression from estimated loads to component choices.</p><a href="assets/lanl/leveling-torque.m" download>Read the original leveling-torque calculation ↓</a></div><figure class="image-panel"><img src="assets/lanl/torque-analysis.jpg" loading="lazy" alt="Project torque versus base angle analysis plot"><figcaption>Torque versus base angle from the team's analysis archive. Design-analysis output, not measured prototype torque.</figcaption></figure></div></section>
-<section class="section" id="validation"><div class="eyebrow">Testing & iteration</div><h2>The prototype taught us<br>where to improve.</h2><p class="section-intro">Validation included loaded motor testing, full scan sequences, VICON motion capture, and field evaluation with FBI and civilian EOD technicians.</p><div class="test-grid"><figure><img src="assets/lanl/accuracy-test.webp" loading="lazy" alt="Full scan sequence positional accuracy plot from the final report"><figcaption>Full-sequence positional accuracy, final report Figure 32. Some commanded scan positions fell outside the target tolerance.</figcaption></figure><div><h3>Repeatability ≠ absolute accuracy.</h3><p>The final testing section reports repeatability of approximately <strong>0.081 inches</strong> across sequence trials. The <strong>±0.125-inch absolute accuracy target was not achieved</strong> across the full scan area.</p><p>Testing traced a major error source to backlash and compliance at the base coupling. Nonlinear behavior limited the effectiveness of the software compensation.</p><p>That distinction matters: consistently returning near a location does not guarantee that the location matches the commanded coordinates.</p></div></div><div class="outcomes"><div><h3>Integration lesson</h3><p>Frequent serial position updates competed with stepper pulse generation. The report describes reducing message traffic and using a move-complete status message to improve motion behavior.</p></div><div><h3>Field lesson</h3><p>The leveling motor did not operate reliably in field testing, so the team used gravity-based leveling. User feedback prioritized lower weight, easier transport, and adjustable imaging angles.</p></div></div></section>
-<section class="section" id="documents"><div class="eyebrow">Project documentation</div><h2>The work behind the work.</h2><p class="section-intro">The project poster summarizes the architecture, requirements, and results. Engineering drawings and source code are linked in the sections above.</p><div class="docs"><a class="doc" href="assets/lanl/project-poster.pdf" target="_blank" rel="noopener"><strong>Project poster</strong><span>One-page overview · Architecture, requirements, and results.</span><em>Open PDF ↗</em></a></div><details><summary>Team credits & source notes</summary><ul><li>CU Boulder Senior Design Team 20: Daphne Felt, Benjamin Green, Mateo Medellin, Dylan Mills, Thomas Montgomery, Jakson Praeger, Kyle Varra, Luca Voeller, and Bella Wolf.</li><li>Project sponsor: Los Alamos National Laboratory. Final report dated May 9, 2025.</li><li>CAD renderings, manufacturing drawings, and validation figures are team deliverables. Original drawing title blocks retain their attribution.</li><li>The electrical image is Figure 23 in the report and is labeled Scheme12 in its title block. The original Scheme12 KiCad source is linked separately.</li><li>Performance statements use the report's detailed testing and limitations sections, which distinguish targets from achieved results.</li></ul></details></section>
-<section class="closing"><h2>Engineering is in the integration.</h2><p>Interested in my work across hardware, sensing, and controls?</p><a class="pill" href="mailto:dylan33mills@gmail.com">Let’s talk ↗</a></section><footer><a href="index.html#work">← All projects</a><span>© Dylan Mills · LANL-sponsored capstone</span><a href="#">Back to top ↑</a></footer></main></body></html>
+        self.node.nmt.<span class="syntax-function">wait_for_heartbeat</span>()
+
+        <span class="syntax-keyword">try</span>:
+            self.node.nmt.state = <span class="syntax-string">&#x27;PRE-OPERATIONAL&#x27;</span> 
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.5</span>)
+        <span class="syntax-keyword">except</span>:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Setting state to pre-operational failed&quot;</span>)
+
+        <span class="syntax-keyword">try</span>:
+            self.node.nmt.state = <span class="syntax-string">&#x27;OPERATIONAL&#x27;</span>
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.5</span>)
+        <span class="syntax-keyword">except</span>:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Setting state to operational failed&quot;</span>)
+
+        self.stepsPos = <span class="syntax-number">0</span> <span class="syntax-comment">#Steps</span>
+        self.stepsZero = <span class="syntax-number">0</span>
+        
+        self.pos = self.<span class="syntax-function">get_position_absolute</span>(<span class="syntax-keyword">False</span>)
+        self.master_pos = self.pos
+
+        self.limit_right = <span class="syntax-number">7</span>  <span class="syntax-comment"># GPIO pin for the limit right</span>
+        self.limit_left = <span class="syntax-number">27</span>  <span class="syntax-comment"># GPIO pin for the limit left</span>
+        self.limit_joint = <span class="syntax-number">19</span> <span class="syntax-comment"># GPIO pin for the joint limit switch</span>
+        self.limit_panel = <span class="syntax-number">26</span> <span class="syntax-comment"># GPIO pin for the panel limit switch</span>
+
+        GPIO.<span class="syntax-function">setwarnings</span>(<span class="syntax-keyword">False</span>)
+        GPIO.<span class="syntax-function">setmode</span>(GPIO.BCM)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_left, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_right, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_joint, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_panel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+        <span class="syntax-comment"># Handle ESTOP cases</span>
+        GPIO.<span class="syntax-function">cleanup</span>()
+        GPIO.<span class="syntax-function">setmode</span>(GPIO.BCM)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_left, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_right, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_joint, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.<span class="syntax-function">setup</span>(self.limit_panel, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    
+        <span class="syntax-comment"># GPIO.add_event_detect(self.limit_left, GPIO.RISING, callback=self.left_limit_interrupt, bouncetime=300)</span>
+        <span class="syntax-comment"># GPIO.add_event_detect(self.limit_right, GPIO.RISING, callback=self.right_limit_interrupt, bouncetime=300)</span>
+
+    <span class="syntax-keyword">async</span> <span class="syntax-keyword">def</span> <span class="syntax-function">check_right_limit</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Continuously monitors the right limit switch and triggers the interrupt
+        if the switch is activated.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">while</span> <span class="syntax-keyword">True</span>:
+            last_state = GPIO.<span class="syntax-function">input</span>(self.limit_right)
+            <span class="syntax-keyword">await</span> asyncio.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.05</span>)
+            <span class="syntax-keyword">if</span> GPIO.<span class="syntax-function">input</span>(self.limit_right):
+                <span class="syntax-keyword">if</span> last_state == <span class="syntax-number">0</span>:
+                    self.<span class="syntax-function">right_limit_interrupt</span>()
+
+    <span class="syntax-keyword">async</span> <span class="syntax-keyword">def</span> <span class="syntax-function">check_left_limit</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Continuously monitors the left limit switch and triggers the interrupt
+        if the switch is activated.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">while</span> <span class="syntax-keyword">True</span>:
+            last_state = GPIO.<span class="syntax-function">input</span>(self.limit_left)
+            <span class="syntax-keyword">await</span> asyncio.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.05</span>)
+            <span class="syntax-keyword">if</span> GPIO.<span class="syntax-function">input</span>(self.limit_left):
+                <span class="syntax-keyword">if</span> last_state == <span class="syntax-number">0</span>:
+                    self.<span class="syntax-function">left_limit_interrupt</span>()
+
+    <span class="syntax-keyword">async</span> <span class="syntax-keyword">def</span> <span class="syntax-function">check_joint_limit</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Continuously monitors the joint limit switch and triggers the interrupt
+        if the switch is activated.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">while</span> <span class="syntax-keyword">True</span>:
+            last_state = GPIO.<span class="syntax-function">input</span>(self.limit_joint)
+            <span class="syntax-keyword">await</span> asyncio.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.05</span>)
+            <span class="syntax-keyword">if</span> <span class="syntax-keyword">not</span> GPIO.<span class="syntax-function">input</span>(self.limit_joint):
+                <span class="syntax-keyword">if</span> last_state == <span class="syntax-number">1</span>:
+                    self.<span class="syntax-function">joint_limit_interrupt</span>()
+
+
+    <span class="syntax-keyword">async</span> <span class="syntax-keyword">def</span> <span class="syntax-function">check_panel_limit</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Continuously monitors the panel limit switch and triggers the interrupt
+        if the switch is activated.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">while</span> <span class="syntax-keyword">True</span>:
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.05</span>)
+            last_state = GPIO.<span class="syntax-function">input</span>(self.limit_panel)
+            <span class="syntax-keyword">await</span> asyncio.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.05</span>)
+            <span class="syntax-keyword">if</span> GPIO.<span class="syntax-function">input</span>(self.limit_panel):
+                <span class="syntax-keyword">if</span> last_state == <span class="syntax-number">0</span>:
+                    self.<span class="syntax-function">panel_limit_interrupt</span>()
+
+<span id="panel-limits" class="code-anchor"></span>    <span class="syntax-keyword">def</span> <span class="syntax-function">right_limit_interrupt</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Handles the event when the right limit switch is triggered.
+        Stops the motor and performs calibration if necessary.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Right limit interrupt triggered&quot;</span>)
+        self.mainControl.<span class="syntax-function">disable_motor</span>()
+        self.mainControl.arduino.<span class="syntax-function">writeDataToArduino</span>(<span class="syntax-string">&quot;abort&quot;</span>,<span class="syntax-number">0</span>,<span class="syntax-number">0</span>)
+        <span class="syntax-keyword">if</span> self.calibratingBaseRight:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Calibrating base&quot;</span>)
+            self.calibratingBaseRight = <span class="syntax-keyword">False</span>
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.25</span>)
+            self.<span class="syntax-function">zero_base</span>()
+        <span class="syntax-keyword">else</span>:
+            self.mainControl.ethernet.<span class="syntax-function">send_message</span>(f&quot;Error:Right Limit Switch Hit&quot;)
+
+    <span class="syntax-keyword">def</span> <span class="syntax-function">left_limit_interrupt</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Handles the event when the left limit switch is triggered.
+        Stops the motor and performs calibration if necessary.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Left limit interrupt triggered&quot;</span>)
+        self.mainControl.<span class="syntax-function">disable_motor</span>()
+        self.mainControl.arduino.<span class="syntax-function">writeDataToArduino</span>(<span class="syntax-string">&quot;abort&quot;</span>,<span class="syntax-number">0</span>,<span class="syntax-number">0</span>)
+        <span class="syntax-keyword">if</span> self.calibratingBaseLeft:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Calibrating base&quot;</span>)
+            self.calibratingBaseLeft = <span class="syntax-keyword">False</span>
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.25</span>)
+            self.<span class="syntax-function">zero_base</span>()
+        <span class="syntax-keyword">else</span>:
+            self.mainControl.ethernet.<span class="syntax-function">send_message</span>(f&quot;Error:Left Limit Switch Hit&quot;)
+
+    <span class="syntax-keyword">def</span> <span class="syntax-function">joint_limit_interrupt</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Handles the event when the joint limit switch is triggered.
+        Stops the motor and performs calibration if necessary.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Joint limit interrupt triggered&quot;</span>)
+        <span class="syntax-keyword">if</span> self.calibratingJoint:
+            self.mainControl.arduino.<span class="syntax-function">writeDataToArduino</span>(<span class="syntax-string">&quot;abort&quot;</span>,<span class="syntax-number">0</span>,<span class="syntax-number">0</span>)
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Calibrating joint&quot;</span>)
+            self.calibratingJoint = <span class="syntax-keyword">False</span>
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.25</span>)
+            self.mainControl.arduino.<span class="syntax-function">writeDataToArduino</span>(<span class="syntax-string">&quot;zero&quot;</span>,<span class="syntax-number">0</span>,<span class="syntax-number">0</span>)
+            self.mainControl.theta2 = <span class="syntax-number">0</span>
+
+    <span class="syntax-keyword">def</span> <span class="syntax-function">panel_limit_interrupt</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Handles the event when the panel limit switch is triggered.
+        Stops the motor and performs calibration if necessary.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Panel limit interrupt triggered&quot;</span>)
+        self.mainControl.<span class="syntax-function">disable_motor</span>()
+        self.mainControl.arduino.<span class="syntax-function">writeDataToArduino</span>(<span class="syntax-string">&quot;abort&quot;</span>,<span class="syntax-number">0</span>,<span class="syntax-number">0</span>)
+        <span class="syntax-keyword">if</span> self.calibratingPanel:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Calibrating panel&quot;</span>)
+            self.calibratingPanel = <span class="syntax-keyword">False</span>
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.25</span>)
+            self.mainControl.ethernet.<span class="syntax-function">send_message</span>(f&quot;Panel_Calibrate_Here&quot;)
+        <span class="syntax-keyword">else</span>:
+            self.mainControl.ethernet.<span class="syntax-function">send_message</span>(f&quot;Error:Panel Limit Switch Hit&quot;)
+        
+    <span class="syntax-keyword">def</span> <span class="syntax-function">connect</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Establishes a connection to the CAN bus for motor control.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">if</span> self.connected:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Already connected&quot;</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-keyword">False</span>
+        <span class="syntax-keyword">if</span> self.moving:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Cannot connect while moving&quot;</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-keyword">False</span>
+        self.network.<span class="syntax-function">disconnect</span>()
+        self.network.<span class="syntax-function">connect</span>(bustype=<span class="syntax-string">&#x27;socketcan&#x27;</span>, channel=<span class="syntax-string">&#x27;can0&#x27;</span>, bitrate=<span class="syntax-number">125000</span>)
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.5</span>)
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Connected to CAN bus&quot;</span>)
+        self.connected = <span class="syntax-keyword">True</span>
+        <span class="syntax-keyword">return</span> <span class="syntax-keyword">True</span>
+    
+    <span class="syntax-keyword">def</span> <span class="syntax-function">disconnect</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Disconnects from the CAN bus for motor control.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">if</span> <span class="syntax-keyword">not</span> self.connected:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Already disconnected&quot;</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-keyword">False</span>
+        self.network.<span class="syntax-function">disconnect</span>()
+        self.connected = <span class="syntax-keyword">False</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Disconnected from CAN bus&quot;</span>)
+        <span class="syntax-keyword">return</span> <span class="syntax-keyword">True</span>
+
+<span id="panel-drive" class="code-anchor"></span>    <span class="syntax-keyword">def</span> <span class="syntax-function">enable_motor</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Enables the motor by sending the appropriate control commands.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">if</span> self.enabled:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Motor already enabled&quot;</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-keyword">False</span>
+        self.node.sdo[<span class="syntax-number">0x6040</span>].raw = <span class="syntax-number">0x06</span> <span class="syntax-comment">#Shutdown</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.1</span>)
+        self.node.sdo[<span class="syntax-number">0x6040</span>].raw = <span class="syntax-number">0x07</span> <span class="syntax-comment">#Switch on</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.1</span>)
+        self.node.sdo[<span class="syntax-number">0x6040</span>].raw = <span class="syntax-number">0x0F</span> <span class="syntax-comment">#Enable operation</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.1</span>)
+        self.enabled = <span class="syntax-keyword">True</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Drive enabled&quot;</span>)
+        <span class="syntax-keyword">return</span> <span class="syntax-keyword">True</span>
+    
+    <span class="syntax-keyword">def</span> <span class="syntax-function">disable_motor</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Disables the motor by sending the appropriate control commands.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">if</span> <span class="syntax-keyword">not</span> self.enabled:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Motor already disabled&quot;</span>)
+            <span class="syntax-keyword">return</span> <span class="syntax-keyword">False</span>
+        self.node.sdo[<span class="syntax-number">0x6040</span>].raw = <span class="syntax-number">0x06</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.1</span>)
+        self.enabled = <span class="syntax-keyword">False</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Drive disabled&quot;</span>)
+        <span class="syntax-keyword">return</span> <span class="syntax-keyword">True</span>
+    
+    <span class="syntax-comment">#Gets the position of the motor in degrees (True, Default) or encoder counts (False)</span>
+    <span class="syntax-keyword">def</span> <span class="syntax-function">get_position_absolute</span>(self, inDegrees=<span class="syntax-keyword">True</span>):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Retrieves the absolute position of the motor in degrees or encoder counts.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">try</span>:
+            <span class="syntax-keyword">if</span> inDegrees:
+                <span class="syntax-function">print</span>(f&quot;Current Position Absolute: {self.node.sdo[<span class="syntax-number">0x6064</span>].raw/<span class="syntax-number">100</span>/<span class="syntax-number">10000</span>*<span class="syntax-number">360</span>}&quot;)
+                <span class="syntax-keyword">return</span> self.node.sdo[<span class="syntax-number">0x6064</span>].raw/<span class="syntax-number">100</span>/<span class="syntax-number">10000</span>*<span class="syntax-number">360</span>
+            <span class="syntax-keyword">else</span>:
+                <span class="syntax-function">print</span>(f&quot;Current Position Absolute: {self.node.sdo[<span class="syntax-number">0x6064</span>].raw}&quot;)
+                <span class="syntax-keyword">return</span> self.node.sdo[<span class="syntax-number">0x6064</span>].raw
+        <span class="syntax-keyword">except</span>:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Error getting position absolute&quot;</span>)
+            <span class="syntax-comment"># self.mainControl.ethernet.send_message(f&quot;Error:Base motor cannot read absolute position&quot;)</span>
+            <span class="syntax-keyword">return</span> self.pos
+    
+    <span class="syntax-keyword">def</span> <span class="syntax-function">get_position_relative</span>(self, inDegrees=<span class="syntax-keyword">True</span>):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Retrieves the relative position of the motor in degrees or encoder counts.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">try</span>:
+            <span class="syntax-keyword">if</span> inDegrees:
+                <span class="syntax-keyword">return</span> (self.node.sdo[<span class="syntax-number">0x6064</span>].raw - self.stepsZero)/<span class="syntax-number">100</span>/<span class="syntax-number">10000</span>*<span class="syntax-number">360</span>
+            <span class="syntax-keyword">else</span>:
+                <span class="syntax-keyword">return</span> self.node.sdo[<span class="syntax-number">0x6064</span>].raw
+        <span class="syntax-keyword">except</span>:
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Error getting position relative&quot;</span>)
+            <span class="syntax-comment"># self.mainControl.ethernet.send_message(f&quot;Error:Base motor cannot read relative position&quot;)</span>
+            <span class="syntax-keyword">return</span> self.pos - self.stepsZero
+
+    <span class="syntax-keyword">def</span> <span class="syntax-function">zero_base</span>(self):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Sets the current position of the motor as the zero position.
+        &quot;&quot;&quot;</span>
+        self.stepsZero = self.<span class="syntax-function">get_position_absolute</span>(<span class="syntax-keyword">False</span>)
+
+    <span class="syntax-keyword">def</span> <span class="syntax-function">set_zero</span>(self, pos_deg):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Sets a specific position in degrees as the zero position.
+        &quot;&quot;&quot;</span>
+        self.stepsZero = self.<span class="syntax-function">convert_deg_to_pos</span>(pos_deg)
+
+    <span class="syntax-comment">#Converts degrees to encoder counts</span>
+    <span class="syntax-keyword">def</span> <span class="syntax-function">convert_deg_to_pos</span>(self, angle):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Converts an angle in degrees to encoder counts.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">return</span> angle/<span class="syntax-number">360</span>*<span class="syntax-number">10000</span>*<span class="syntax-number">100</span>
+    
+    <span class="syntax-comment">#Converts encoder counts to degrees</span>
+    <span class="syntax-keyword">def</span> <span class="syntax-function">convert_pos_to_deg</span>(self, pos):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Converts encoder counts to an angle in degrees.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-keyword">return</span> pos/<span class="syntax-number">10000</span>/<span class="syntax-number">100</span>*<span class="syntax-number">360</span>
+    
+    <span class="syntax-comment">#Sets current set point of the motor, not sure if this is what it actually does, need to look into it</span>
+    <span class="syntax-keyword">def</span> <span class="syntax-function">set_angle</span>(self, counts):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Sets the current setpoint of the motor in encoder counts.
+        &quot;&quot;&quot;</span>
+        self.node.sdo[<span class="syntax-number">0x6064</span>].raw = counts
+        self.pos = counts
+    
+<span id="panel-motion" class="code-anchor"></span>    <span class="syntax-keyword">def</span> <span class="syntax-function">move_motor</span>(self, target_position_deg, velocity=<span class="syntax-number">1000</span>, acceleration=<span class="syntax-number">50</span>, deceleration=<span class="syntax-number">50</span>, relative=<span class="syntax-keyword">False</span>):
+        <span class="syntax-string">&quot;&quot;&quot;
+        Moves the motor to a target position with specified velocity, acceleration,
+        and deceleration. Supports both absolute and relative movements.
+        &quot;&quot;&quot;</span>
+        <span class="syntax-comment">#Checks if Motor is ready to move</span>
+        <span class="syntax-keyword">if</span>(self.enabled == <span class="syntax-keyword">False</span>):
+            <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Cannot move motor, motor is not enabled.&quot;</span>)
+            self.mainControl.ethernet.<span class="syntax-function">send_message</span>(f&quot;Error:Need to enable base motor to move it&quot;)
+            <span class="syntax-keyword">return</span>
+        
+        self.moving = <span class="syntax-keyword">True</span>
+
+        <span class="syntax-keyword">if</span> relative:
+            start_position = self.<span class="syntax-function">get_position_relative</span>(inDegrees=<span class="syntax-keyword">False</span>)
+
+        <span class="syntax-comment"># Enable Profile Position Mode</span>
+        self.node.sdo[<span class="syntax-number">0x6060</span>].raw = <span class="syntax-number">0x01</span>  <span class="syntax-comment"># 0001h for Profile Position Mode</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.25</span>)
+
+        target_position = target_position_deg/<span class="syntax-number">360</span>*<span class="syntax-number">10000</span>*<span class="syntax-number">100</span>
+        <span class="syntax-keyword">if</span> <span class="syntax-keyword">not</span> relative:
+            target_position = target_position + self.stepsZero <span class="syntax-comment">#Add the zero position to the target position</span>
+
+        self.node.sdo[<span class="syntax-number">0x607A</span>].raw = target_position
+        self.node.sdo[<span class="syntax-number">0x6081</span>].raw = velocity
+        self.node.sdo[<span class="syntax-number">0x6083</span>].raw = acceleration
+        self.node.sdo[<span class="syntax-number">0x6084</span>].raw = deceleration
+
+        control_word = <span class="syntax-number">0x001F</span>  <span class="syntax-comment"># Enable set-point (Bit 4 High)</span>
+        <span class="syntax-keyword">if</span> relative:
+            control_word |= <span class="syntax-number">0x40</span>  <span class="syntax-comment"># Set relative movement (Bit 6 High)</span>
+
+        self.node.sdo[<span class="syntax-number">0x6040</span>].raw = control_word  <span class="syntax-comment"># Bit 4 = New Setpoint</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.1</span>)
+
+        <span class="syntax-keyword">while</span> <span class="syntax-keyword">not</span> (self.node.sdo[<span class="syntax-number">0x6041</span>].raw &amp; <span class="syntax-number">0x1000</span>):  <span class="syntax-comment"># Check bit 12</span>
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.01</span>)
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Setpoint acknowledged.&quot;</span>)
+
+        <span class="syntax-comment"># Clear &quot;New Set-Point&quot; bit</span>
+        self.node.sdo[<span class="syntax-number">0x6040</span>].raw = <span class="syntax-number">0x000F</span>  <span class="syntax-comment"># Clear Bit</span>
+        time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.1</span>)
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Motion started.&quot;</span>)
+
+        <span class="syntax-comment"># Wait for the motor to reach the target position</span>
+        threshold = <span class="syntax-number">10</span>
+        i = <span class="syntax-number">0</span>
+        <span class="syntax-keyword">if</span> relative:
+            current_position = self.<span class="syntax-function">get_position_relative</span>(inDegrees=<span class="syntax-keyword">False</span>) - start_position
+        <span class="syntax-keyword">else</span>:
+            current_position = self.<span class="syntax-function">get_position_absolute</span>(inDegrees=<span class="syntax-keyword">False</span>)
+        
+
+        <span class="syntax-keyword">while</span> <span class="syntax-keyword">not</span> (np.<span class="syntax-function">isclose</span>(current_position, target_position, atol = threshold)) <span class="syntax-keyword">and</span> self.enabled <span class="syntax-keyword">and</span> <span class="syntax-keyword">not</span> self.mainControl.waiting_on_abort:
+            <span class="syntax-keyword">if</span> relative:
+                current_position = self.<span class="syntax-function">get_position_relative</span>(inDegrees=<span class="syntax-keyword">False</span>) - start_position
+            <span class="syntax-keyword">else</span>:
+                current_position = self.<span class="syntax-function">get_position_absolute</span>(inDegrees=<span class="syntax-keyword">False</span>)
+            time.<span class="syntax-function">sleep</span>(<span class="syntax-number">0.25</span>)
+            i = i + <span class="syntax-number">1</span>
+            <span class="syntax-keyword">if</span> i &gt; <span class="syntax-number">200</span>:
+                <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Timeout (20s) waiting for target position&quot;</span>)
+                self.mainControl.ethernet.<span class="syntax-function">send_message</span>(f&quot;Error:Base motor movement timeout&quot;)
+                <span class="syntax-keyword">break</span>
+        <span class="syntax-function">print</span>(<span class="syntax-string">&quot;Finished Moving Base&quot;</span>)
+        self.moving = <span class="syntax-keyword">False</span>
+
+
+
+</code></pre></div></section>
+<section class="section"><div class="eyebrow">Analysis & design decisions</div><h2>Choose the hardware.<br>Check the assumptions.</h2><div class="split"><div><p class="muted">Motor selection was supported by MATLAB calculations for centers of mass, inertia, and joint torque. Comparing loads across arm configurations helped the team evaluate motor and gearbox combinations.</p><p class="muted">Calculations for panel-leveling torque, backlash, and motor conversion helped connect estimated loads to component choices.</p></div><figure class="image-panel"><img src="assets/lanl/torque-analysis.jpg" loading="lazy" alt="Project torque versus base angle analysis plot" width="1120" height="840"><figcaption>Calculated torque across base-arm angles.</figcaption></figure></div></section>
+<section class="section" id="validation"><div class="eyebrow">Testing & iteration</div><h2>The prototype taught us<br>where to improve.</h2><p class="section-intro">Validation included loaded motor testing, full scan sequences, VICON motion capture, and field evaluation with FBI and civilian EOD technicians.</p><div class="test-grid"><figure><img src="assets/lanl/accuracy-test.webp" loading="lazy" alt="Full scan sequence positional accuracy plot" width="1469" height="1164"><figcaption>Full-sequence positional accuracy. Some commanded scan positions fell outside the target tolerance.</figcaption></figure><div><h3>Repeatability ≠ absolute accuracy.</h3><p>Sequence trials measured repeatability of approximately <strong>0.081 inches</strong> across sequence trials. The <strong>±0.125-inch absolute accuracy target was not achieved</strong> across the full scan area.</p><p>Testing identified backlash and compliance at the base coupling as major contributors to positioning error. Nonlinear behavior limited the effectiveness of the software compensation.</p><p>That distinction matters: consistently returning near a location does not guarantee that the location matches the commanded coordinates.</p></div></div></section>
+<section class="section" id="documents"><div class="eyebrow">Project overview</div><h2>The system at a glance.</h2><p class="section-intro">A one-page overview of the architecture, design requirements, and test results.</p><div class="docs"><a class="doc" href="assets/lanl/project-poster.pdf" target="_blank" rel="noopener"><strong>Project poster</strong><span>One-page overview · Architecture, requirements, and results.</span><em>Open PDF ↗</em></a></div></section>
+<section class="closing"><h2>Engineering is in the integration.</h2><p>Interested in my work across hardware, sensing, and controls?</p><a class="pill" href="mailto:dylan33mills@gmail.com">Let’s talk ↗</a></section><footer><a href="index.html#work">← All projects</a><span>© Dylan Mills · LANL-sponsored capstone</span><a href="#">Back to top ↑</a></footer></main><script>
+(() => {
+  const pane = document.getElementById('panel-code');
+  const jumps = [...document.querySelectorAll('[data-code-target]')];
+  const jumpTo = (id) => {
+    const target = document.getElementById(id);
+    if (!pane || !target) return;
+    pane.scrollTop = id === 'panel-start' ? 0 : Math.max(0, target.offsetTop - 26);
+    jumps.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.codeTarget === id)));
+  };
+  jumps.forEach(button => button.addEventListener('click', () => jumpTo(button.dataset.codeTarget)));
+  jumpTo('panel-motion');
+})();
+</script></body></html>
